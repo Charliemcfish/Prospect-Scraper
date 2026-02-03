@@ -124,11 +124,12 @@
 
   /**
    * Apply search and filter criteria
+   * This page shows only NEW prospects (not contacted or converted)
    */
   function applyFilters() {
     const searchTerm = searchInput.value.toLowerCase().trim();
     const selectedTown = townFilter.value;
-    const selectedStatus = statusFilter ? statusFilter.value : 'all';
+    const selectedStatus = statusFilter ? statusFilter.value : 'new';
 
     filteredProspects = {};
 
@@ -143,14 +144,12 @@
           return false;
         }
 
-        // Status filter
-        if (selectedStatus !== 'all') {
-          const prospectStatus = prospect.status || 'new';
-          if (selectedStatus === 'new' && prospectStatus !== 'new') return false;
-          if (selectedStatus === 'contacted' && prospectStatus !== 'contacted') return false;
-          if (selectedStatus === 'converted' && prospectStatus !== 'converted') return false;
-          if (selectedStatus === 'flagged' && !prospect.flagged) return false;
-        }
+        // This page only shows NEW prospects
+        const prospectStatus = prospect.status || 'new';
+        if (prospectStatus !== 'new') return false;
+
+        // Additional filter for flagged only
+        if (selectedStatus === 'flagged' && !prospect.flagged) return false;
 
         return true;
       });

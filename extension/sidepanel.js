@@ -7,10 +7,6 @@
   'use strict';
 
   // DOM Elements
-  const statTotalEl = document.getElementById('stat-total');
-  const statContactedEl = document.getElementById('stat-contacted');
-  const statConvertedEl = document.getElementById('stat-converted');
-  const statRateEl = document.getElementById('stat-rate');
   const viewAllBtn = document.getElementById('view-all-btn');
   const viewContactedBtn = document.getElementById('view-contacted-btn');
   const viewConvertedBtn = document.getElementById('view-converted-btn');
@@ -34,7 +30,7 @@
     try {
       const storage = await chrome.storage.local.get(['prospects']);
       prospects = storage.prospects || {};
-      updateDashboardStats();
+      updateProspectCount();
       renderProspects();
     } catch (error) {
       console.error('Failed to load prospects:', error);
@@ -42,33 +38,14 @@
   }
 
   /**
-   * Update dashboard statistics
+   * Update prospect count (for empty state display)
    */
-  function updateDashboardStats() {
+  function updateProspectCount() {
     let totalProspects = 0;
-    let totalContacted = 0;
-    let totalConverted = 0;
 
     for (const town of Object.keys(prospects)) {
-      for (const prospect of prospects[town]) {
-        totalProspects++;
-        if (prospect.status === 'contacted' || prospect.status === 'converted') {
-          totalContacted++;
-        }
-        if (prospect.status === 'converted') {
-          totalConverted++;
-        }
-      }
+      totalProspects += prospects[town].length;
     }
-
-    const conversionRate = totalContacted > 0
-      ? ((totalConverted / totalContacted) * 100).toFixed(1)
-      : 0;
-
-    statTotalEl.textContent = totalProspects;
-    statContactedEl.textContent = totalContacted;
-    statConvertedEl.textContent = totalConverted;
-    statRateEl.textContent = `${conversionRate}%`;
 
     // Show/hide empty state
     if (totalProspects === 0) {
@@ -246,7 +223,7 @@
     chrome.storage.onChanged.addListener((changes, areaName) => {
       if (areaName === 'local' && changes.prospects) {
         prospects = changes.prospects.newValue || {};
-        updateDashboardStats();
+        updateProspectCount();
         renderProspects();
       }
     });
