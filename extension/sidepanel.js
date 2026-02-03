@@ -1,15 +1,19 @@
 /**
  * Side Panel Script for Business Prospect Scraper
- * Handles displaying prospects in the side panel interface
+ * Handles displaying prospects and dashboard stats in the side panel interface
  */
 
 (function() {
   'use strict';
 
   // DOM Elements
-  const townCountEl = document.getElementById('town-count');
-  const prospectCountEl = document.getElementById('prospect-count');
+  const statTotalEl = document.getElementById('stat-total');
+  const statContactedEl = document.getElementById('stat-contacted');
+  const statConvertedEl = document.getElementById('stat-converted');
+  const statRateEl = document.getElementById('stat-rate');
   const viewAllBtn = document.getElementById('view-all-btn');
+  const viewContactedBtn = document.getElementById('view-contacted-btn');
+  const viewConvertedBtn = document.getElementById('view-converted-btn');
   const townsListEl = document.getElementById('towns-list');
   const emptyStateEl = document.getElementById('empty-state');
   const quickInfoEl = document.getElementById('quick-info');
@@ -30,6 +34,7 @@
     try {
       const storage = await chrome.storage.local.get(['prospects']);
       prospects = storage.prospects || {};
+      updateDashboardStats();
       renderProspects();
     } catch (error) {
       console.error('Failed to load prospects:', error);
@@ -37,18 +42,33 @@
   }
 
   /**
-   * Update statistics display
+   * Update dashboard statistics
    */
-  function updateStats() {
-    const townCount = Object.keys(prospects).length;
+  function updateDashboardStats() {
     let totalProspects = 0;
+    let totalContacted = 0;
+    let totalConverted = 0;
 
     for (const town of Object.keys(prospects)) {
-      totalProspects += prospects[town].length;
+      for (const prospect of prospects[town]) {
+        totalProspects++;
+        if (prospect.status === 'contacted' || prospect.status === 'converted') {
+          totalContacted++;
+        }
+        if (prospect.status === 'converted') {
+          totalConverted++;
+        }
+      }
     }
 
-    townCountEl.textContent = townCount;
-    prospectCountEl.textContent = totalProspects;
+    const conversionRate = totalContacted > 0
+      ? ((totalConverted / totalContacted) * 100).toFixed(1)
+      : 0;
+
+    statTotalEl.textContent = totalProspects;
+    statContactedEl.textContent = totalContacted;
+    statConvertedEl.textContent = totalConverted;
+    statRateEl.textContent = `${conversionRate}%`;
 
     // Show/hide empty state
     if (totalProspects === 0) {
@@ -65,8 +85,6 @@
     // Clear existing towns (but keep empty state)
     const townCards = townsListEl.querySelectorAll('.town-card');
     townCards.forEach(card => card.remove());
-
-    updateStats();
 
     // Sort towns alphabetically
     const sortedTowns = Object.keys(prospects).sort();
@@ -88,6 +106,11 @@
     card.dataset.town = town;
 
     const isExpanded = expandedTowns.has(town);
+
+    // Count statuses
+    const newCount = townProspects.filter(p => !p.status || p.status === 'new').length;
+    const contactedCount = townProspects.filter(p => p.status === 'contacted').length;
+    const convertedCount = townProspects.filter(p => p.status === 'converted').length;
 
     card.innerHTML = `
       <button class="town-header" aria-expanded="${isExpanded}">
@@ -127,11 +150,15 @@
    * Create a prospect list item HTML
    */
   function createProspectItem(prospect) {
+    const status = prospect.status || 'new';
+    const statusClass = status !== 'new' ? `status-${status}` : '';
     const rating = prospect.rating !== 'Not available' ? `${prospect.rating} stars` : '';
+    const flagged = prospect.flagged ? '<span class="flagged-dot" title="Flagged"></span>' : '';
 
     return `
-      <button class="prospect-item">
+      <button class="prospect-item ${statusClass}">
         <span class="prospect-name">${escapeHtml(prospect.businessName)}</span>
+        ${flagged}
         ${rating ? `<span class="prospect-rating">${rating}</span>` : ''}
       </button>
     `;
@@ -182,10 +209,12 @@
   }
 
   /**
-   * Open full prospects page in new tab
+   * Open a page in a new tab
    */
-  function openProspectsPage() {
-    chrome.runtime.sendMessage({ type: 'OPEN_PROSPECTS_PAGE' });
+  function openPage(pageName) {
+    chrome.tabs.create({
+      url: chrome.runtime.getURL(pageName)
+    });
   }
 
   /**
@@ -201,7 +230,9 @@
    * Set up event listeners
    */
   function setupEventListeners() {
-    viewAllBtn.addEventListener('click', openProspectsPage);
+    viewAllBtn.addEventListener('click', () => openPage('prospects.html'));
+    viewContactedBtn.addEventListener('click', () => openPage('contacted.html'));
+    viewConvertedBtn.addEventListener('click', () => openPage('converted.html'));
     closeQuickInfoBtn.addEventListener('click', hideQuickInfo);
 
     // Listen for updates from content script
@@ -215,6 +246,7 @@
     chrome.storage.onChanged.addListener((changes, areaName) => {
       if (areaName === 'local' && changes.prospects) {
         prospects = changes.prospects.newValue || {};
+        updateDashboardStats();
         renderProspects();
       }
     });

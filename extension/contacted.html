@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Business Prospect Scraper - All Prospects</title>
+  <title>Business Prospect Scraper - Contacted</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body class="prospects-page">
@@ -13,41 +13,19 @@
       <div class="header-content">
         <h1 class="page-title">
           <svg class="title-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-            <circle cx="9" cy="7" r="4"></circle>
-            <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91"></path>
           </svg>
-          Business Prospect Scraper
+          Contacted Prospects
         </h1>
         <div class="header-stats" id="total-stats">
           <!-- Stats will be populated by JS -->
         </div>
       </div>
-      <div class="header-actions">
-        <button id="export-btn" class="btn btn-secondary">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
-          </svg>
-          Export
-        </button>
-        <button id="import-btn" class="btn btn-secondary">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="17 8 12 3 7 8"></polyline>
-            <line x1="12" y1="3" x2="12" y2="15"></line>
-          </svg>
-          Import
-        </button>
-        <input type="file" id="import-input" accept=".json" style="display: none;">
-      </div>
     </header>
 
     <!-- Navigation Tabs -->
     <nav class="page-nav">
-      <a href="prospects.html" class="nav-tab active">
+      <a href="prospects.html" class="nav-tab">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
           <circle cx="9" cy="7" r="4"></circle>
@@ -56,7 +34,7 @@
         </svg>
         All Prospects
       </a>
-      <a href="contacted.html" class="nav-tab">
+      <a href="contacted.html" class="nav-tab active">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72"></path>
         </svg>
@@ -88,16 +66,6 @@
           <option value="all">All Locations</option>
         </select>
       </div>
-      <div class="filter-group">
-        <label for="status-filter" class="filter-label">Status</label>
-        <select id="status-filter">
-          <option value="all">All Status</option>
-          <option value="new">New</option>
-          <option value="contacted">Contacted</option>
-          <option value="converted">Converted</option>
-          <option value="flagged">Flagged</option>
-        </select>
-      </div>
       <div class="filter-actions">
         <button id="clear-filters" class="btn btn-secondary">Clear Filters</button>
       </div>
@@ -112,11 +80,10 @@
       <!-- Empty State -->
       <div id="empty-state" class="empty-state-full hidden">
         <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"></circle>
-          <path d="m21 21-4.35-4.35"></path>
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72"></path>
         </svg>
-        <h2>No Prospects Found</h2>
-        <p id="empty-message">Start by searching for businesses on Google and scanning the page for prospects without websites.</p>
+        <h2>No Contacted Prospects</h2>
+        <p>Click the "Contacted" button on prospects after you've reached out to them.</p>
       </div>
 
       <!-- No Results State -->
@@ -124,7 +91,6 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="8"></circle>
           <path d="m21 21-4.35-4.35"></path>
-          <line x1="8" y1="8" x2="14" y2="14"></line>
         </svg>
         <h2>No Matching Results</h2>
         <p>Try adjusting your search or filter criteria.</p>
@@ -135,6 +101,6 @@
     <div id="toast-container"></div>
   </div>
 
-  <script src="prospects.js"></script>
+  <script src="contacted.js"></script>
 </body>
 </html>

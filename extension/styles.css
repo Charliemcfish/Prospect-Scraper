@@ -945,3 +945,303 @@ button:focus:not(:focus-visible),
 a:focus:not(:focus-visible) {
   outline: none;
 }
+
+/* ============================================
+   New Features Styles
+   ============================================ */
+
+/* Dashboard Stats - Side Panel */
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.dashboard-stat-card {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius);
+}
+
+.stat-icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--border-radius-sm);
+}
+
+.stat-icon-box.stat-total {
+  background: rgba(66, 133, 244, 0.1);
+  color: var(--color-primary);
+}
+
+.stat-icon-box.stat-contacted {
+  background: rgba(251, 188, 4, 0.1);
+  color: var(--color-warning);
+}
+
+.stat-icon-box.stat-converted {
+  background: rgba(52, 168, 83, 0.1);
+  color: var(--color-success);
+}
+
+.stat-icon-box.stat-rate {
+  background: rgba(95, 99, 104, 0.1);
+  color: var(--text-secondary);
+}
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-info .stat-number {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.stat-info .stat-label {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+/* Quick Actions - Side Panel */
+.quick-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.action-row {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.action-row .btn {
+  flex: 1;
+}
+
+/* Page Navigation Tabs */
+.page-nav {
+  display: flex;
+  gap: var(--spacing-sm);
+  background: var(--bg-primary);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+  box-shadow: var(--shadow);
+}
+
+.nav-tab {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: transparent;
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  transition: all var(--transition);
+}
+
+.nav-tab:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.nav-tab.active {
+  background: var(--color-primary);
+  color: white;
+}
+
+/* Header Actions */
+.header-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+}
+
+/* Status Badges */
+.badges {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  border-radius: 12px;
+  text-transform: capitalize;
+}
+
+.status-badge.status-contacted {
+  background: rgba(251, 188, 4, 0.15);
+  color: #b45309;
+}
+
+.status-badge.status-converted {
+  background: rgba(52, 168, 83, 0.15);
+  color: #15803d;
+}
+
+.status-badge.status-flagged {
+  background: rgba(234, 67, 53, 0.15);
+  color: var(--color-danger);
+}
+
+/* Card Title Row */
+.card-title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex: 1;
+  flex-wrap: wrap;
+}
+
+/* Warning Box for Flagged Prospects */
+.warning-box {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  margin: 0 var(--spacing-md) var(--spacing-sm);
+  background: rgba(251, 188, 4, 0.1);
+  border: 1px solid rgba(251, 188, 4, 0.3);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-sm);
+}
+
+.warning-box a {
+  word-break: break-all;
+}
+
+/* Prospect Card Status Variants */
+.prospect-card.status-contacted {
+  border-left: 3px solid var(--color-warning);
+}
+
+.prospect-card.status-converted {
+  border-left: 3px solid var(--color-success);
+}
+
+.prospect-card.flagged {
+  border-left: 3px solid var(--color-danger);
+}
+
+/* Button Success Variant */
+.btn-success {
+  background: var(--color-success);
+  color: white;
+}
+
+.btn-success:hover:not(:disabled) {
+  background: #2e7d4b;
+}
+
+/* Stats Display in Header */
+.header-stats .stat-item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.header-stats .stat-value {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.header-stats .stat-label {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.header-stats .stat-divider {
+  margin: 0 var(--spacing-sm);
+  color: var(--border-color);
+}
+
+/* Status Filter Select */
+#status-filter {
+  padding: 10px 36px 10px 12px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background: var(--bg-primary);
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235f6368' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+#status-filter:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+/* Flagged Dot in Side Panel */
+.flagged-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--color-danger);
+  border-radius: 50%;
+  margin-left: var(--spacing-xs);
+}
+
+/* Prospect Item Status Styles in Side Panel */
+.prospect-item.status-contacted {
+  border-left: 2px solid var(--color-warning);
+}
+
+.prospect-item.status-converted {
+  border-left: 2px solid var(--color-success);
+}
+
+/* Responsive adjustments for new features */
+@media (max-width: 768px) {
+  .dashboard-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .page-nav {
+    flex-wrap: wrap;
+  }
+
+  .nav-tab {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .card-title-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .card-actions {
+    flex-wrap: wrap;
+  }
+}
