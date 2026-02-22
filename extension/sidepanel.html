@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transform Sites - Prospect Scraper</title>
+  <link rel="icon" type="image/png" href="icons/icon.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="sidepanel">
+  <div class="panel-container">
+    <!-- Header -->
+    <header class="panel-header">
+      <div class="brand-logo" style="justify-content: center;">
+        <img src="https://transformsites.co.uk/assets/images/logo.png" alt="Transform Sites" style="height: 32px;" onerror="this.style.display='none'">
+      </div>
+    </header>
+
+    <!-- Dashboard Stats -->
+    <div class="dashboard-stats" id="dashboard-stats">
+      <div class="dashboard-stat-card">
+        <div class="stat-icon-box stat-total">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+        </div>
+        <div class="stat-info">
+          <span class="stat-number" id="stat-new">0</span>
+          <span class="stat-label">New</span>
+        </div>
+      </div>
+      <div class="dashboard-stat-card">
+        <div class="stat-icon-box stat-contacted">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        </div>
+        <div class="stat-info">
+          <span class="stat-number" id="stat-contacted">0</span>
+          <span class="stat-label">Contacted</span>
+        </div>
+      </div>
+      <div class="dashboard-stat-card">
+        <div class="stat-icon-box stat-converted">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+        <div class="stat-info">
+          <span class="stat-number" id="stat-converted">0</span>
+          <span class="stat-label">Customers</span>
+        </div>
+      </div>
+      <div class="dashboard-stat-card">
+        <div class="stat-icon-box stat-rate">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+        </div>
+        <div class="stat-info">
+          <span class="stat-number" id="stat-rate">0%</span>
+          <span class="stat-label">Rate</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <button id="view-all-btn" class="btn btn-primary btn-full">
+        <span>View New Prospects</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+          <polyline points="15 3 21 3 21 9"></polyline>
+          <line x1="10" y1="14" x2="21" y2="3"></line>
+        </svg>
+      </button>
+
+      <div class="action-row">
+        <button id="view-contacted-btn" class="btn btn-secondary btn-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          Contacted
+        </button>
+        <button id="view-converted-btn" class="btn btn-secondary btn-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Customers
+        </button>
+      </div>
+
+      <button id="view-analytics-btn" class="btn btn-secondary btn-sm btn-full" style="margin-top: 4px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+        View Analytics
+      </button>
+    </div>
+
+    <!-- Towns List -->
+    <div class="towns-container">
+      <h2 class="section-title">Prospects by Location</h2>
+      <div id="towns-list" class="towns-list">
+        <!-- Towns will be inserted here -->
+        <div class="empty-state" id="empty-state">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+          <p>No prospects yet</p>
+          <p class="empty-hint">Search for businesses on Google and click "Scan This Page" to find prospects without websites.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Info Panel (shown when clicking a business) -->
+    <div id="quick-info" class="quick-info hidden">
+      <div class="quick-info-header">
+        <h3 id="quick-info-name">Business Name</h3>
+        <button id="close-quick-info" class="btn-icon-only" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="quick-info-content">
+        <div class="info-row">
+          <span class="info-label">Phone:</span>
+          <span id="quick-info-phone" class="info-value">-</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Location:</span>
+          <span id="quick-info-location" class="info-value">-</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Rating:</span>
+          <span id="quick-info-rating" class="info-value">-</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="sidepanel.js"></script>
+</body>
+</html>

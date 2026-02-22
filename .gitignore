@@ -1,0 +1,12 @@
+# Private keys - never commit
+*.pem
+
+# Built extension package
+*.crx
+
+# Claude workspace
+.claude/
+
+# OS files
+.DS_Store
+Thumbs.db
